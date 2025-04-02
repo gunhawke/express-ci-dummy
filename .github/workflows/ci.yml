@@ -1,0 +1,28 @@
+name: Express CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+    
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4 # fetches or 'clones' latest code from repo
+            
+            - name: setup nodejs
+              uses: setup-node@v4
+              with:
+                    node-version: 18
+
+            - name: install deps
+              run: npm install
+            
+            - name: run eslint
+              run: npm run lint
+            
+            - name: run tests
+              run: npm test
